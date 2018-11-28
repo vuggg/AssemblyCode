@@ -1,0 +1,146 @@
+Bài tập chương 5
+50 Viết đoạn mã assembly thực hiện lệnh sau (tính tổng n số tự nhiên đầu tiên)
+ecx=0;
+for(eax=1;eax<n;eax++) ecx+=eax;
+51 Viết đoạn mã assembly thực hiện lệnh sau (tính số thứ n của dãy fibonaci)
+ecx=1; 
+ebx=1;
+for(eax=1; eax<n-2; eax++) {
+ecx+=eax;
+ebx=ecx;
+}
+52 Viết đoạn mã assembly thực hiện lệnh sau
+ecx=a; 
+eax=0;
+while(ecx>0) { eax+=ecx; ecx--;}
+53 Viết đoạn mã assembly thực hiện lệnh sau
+ecx=a; 
+ebx=0;
+for(eax=1; eax<n; eax++) ebx+=ecx;
+54 Viết đoạn mã assembly thực hiện lệnh sau
+int a=5,q=3,n=10;
+ecx=a; 
+eax=0;
+for(edx=1; edx<n; edx++) eax+=ecx*q;
+55 Viết đoạn mã assembly thực hiện lệnh sau
+int n=10;
+cx=n; 
+eax=1;
+while(ecx>1) { eax*=cx; ecx--; }
+56 Viết đoạn mã assembly thực hiện lệnh sau
+int a=67, b=6;
+eax=a; 
+ebx=b;
+ecx=0;
+while (eax >= ebx) { eax -= ebx; ecx++; }
+57 Viết đoạn mã assembly thực hiện lệnh sau:
+int a[8], n=8;
+eax=0;
+ecx=0;
+while (ecx < n) eax += a[ecx++] ;
+58 Viết đoạn mã assembly thực hiện lệnh sau:
+int a[8], n=8;
+eax=0;
+ecx=0;
+while (ecx < n && a[ecx]>=0) eax += a[ecx++] ;
+59 Viết chương trình Assembly giải phương trình bậc nhất ax+b=0 trong đó a và b là các số thực kiểu double
+Xmm1=a; xmm2=b;xmm3=0;
+if(Xmm1==xmm3){
+if(xmm2!=xmm3) edx=-1;
+else edx=0;
+}else{
+edx=1;
+xmm0=-xmm2/xmm1;
+}
+60 Viết chương trình Assembly giải phương trình bậc hai ax2+bx+c=0 trong đó a, b, c là các số thực kiểu double và a!=0;
+xmm5=a; xmm1=b;xmm2=c;xmm3=0;
+xmm4=xmm1*xmm1-4*xmm5*xmm2; ~delta=b*b-4*a*c;
+if(xmm4<xmm3) edx=0;
+else if(xmm4==xmm3){
+edx=1; xmm0=-xmm1/xmm5;
+}else {
+edx=2; 
+xmm0=(-xmm1-sqrt(xmm4))/(2*xmm5);
+xmm1=(-xmm1+sqrt(xmm4))/(2*xmm5);
+}
+61 Viết chương trình tính tổng của một mảng số thực, sau đó in kết quả ra màn hình
+float a[5]={1.1, 2.2, 3.3, 4.4, 5.5}
+unsigned int n=5;
+xmm0=0;
+for(ecx=0; exc<n; ecx++)xmm0+=a[ecx];
+62 Viết chương trình giá trị của số thứ n của một cấp số nhân với giá trị a0 là số thực kiểu double và công bội d kiểu double 
+unsigned int n=7;
+xmm0=a0; xmm2=d;
+for(ecx=1; ecx<=n; ecx++){
+xmm0*=xmm2;
+}
+
+63 Viết chương trình tính tổng n số của một cấp số nhân với giá trị a0 là số thực kiểu double và công bội d kiểu double rồi in ra màn hình
+unsigned int n=7;
+xmm0=a0;xmm1=a0; xmm2=d;
+for(ecx=1; ecx<=n; ecx++){
+xmm1*=xmm2;
+xmm0+=xmm1;
+}
+64 Viết thủ tục sau bằng Assembly
+void calculate(float *pf, double d, int scale)
+{
+*pf=d*(scale+4);
+}
+65 Viết hàm sau bằng Assembly
+double calculate(float pf, double d, int scale)
+{
+return pf+d*(scale+4);
+}
+66 Viết hàm sau bằng Assembly
+double calculate(long * pf, double d, int scale)
+{
+return *pf+d*(scale+4);
+}
+67 Viết hàm sau bằng Assembly
+long calculate(long * pf, double d, int scale)
+{
+if (*pf>d) return *pf*scale;
+else return d*scale;
+}
+68 Viết chương trình tìm ước số chung lớn nhất của hai số nguyên dương a và b.
+eax=a; ebx=b;
+while( eax!=ebx)
+if(eax>ebx)eax-=ebx;
+else if (ebx>eax)ebx-=eax;
+69 Viết chương trình tìm ước số chung lớn nhất của hai số nguyên bất kỳ a và b. (***)
+70 Viết chương trình tìm bội số chung nhỏ nhất của 2 số nguyên dương a và b (gợi ý: tìm hiểu lệnh mul và div cho số nguyên không dấu tại http://www.csie.ntu.edu.tw/…/slides/chapt_07_PartIISolve.pdf)
+ecx=a; ebx=b;
+r8d=ecx*ebx;
+while( ecx!=ebx)
+if(ecx>ebx)ecx-=ebx;
+else if (ebx>ecx)ebx-=ecx;
+eax=r8d/ebx;
+71 Viết chương trình in ra n số đầu tiên của dãy fibonacy
+r8d=1;
+eax=0; ebx=1;
+for (ecx=n-2; ecx>0; ecx--){
+edx=ebx;
+ebx+= eax;
+eax=edx;
+r8d+=ebx;
+}
+72 Viết chương trình tính giai thừa của số nguyên dương n
+r8d=1;
+for(ecx=n; ecx>0; ecx--)r8d*=ecx;
+73 Viết chương trình tính số hạng thứ n của một cấp số cộng với số hạng đầu là a0 và công sai là b (a, b và n là các số nguyên dương)
+unsigned int n=10;
+eax=a0; ebx=b;
+for(ecx=n; ecx>0; ecx--)eax+=ebx;
+74 Viết chương trình tính tổng n số hạng đầu tiên của một cấp số cộng với số hạng đầu là a0 và công sai là b (a, b và n là các số nguyên dương)
+unsigned int n=10;
+eax=a0; ebx=b;r8d=a0;
+for(ecx=n; ecx>0; ecx--){eax+=ebx; r8d+=eax;}
+75 Viết chương trình tính giá trị của số hạng thứ n (n>0) của một cấp số cộng với số hạng đầu là a và công sai là d (a và d là các số thực kiểu float)
+unsigned int n=7;
+xmm0=a0; xmm2=d;
+for(ecx=1; ecx<=n; ecx++) xmm0+=xmm2;
+76 Viết chương trình tính tổng giá trị của n (n>0) số hạng đầu tiên của một cấp số cộng với số hạng đầu là a và công sai là d (a và d là các số thực kiểu float)
+unsigned int n=7;
+xmm0=a0; xmm2=d; xmm1=a0;
+for(ecx=1; ecx<=n; ecx++){ xmm0+=xmm2;xmm1+=xmm0;}
