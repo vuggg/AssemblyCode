@@ -169,4 +169,58 @@ mov $1, %edx
 neg %edx
 ```
 
+## Bài 7: Viết chương trình tính tổng của một mảng số thực, sau đó in kết quả ra màn hình
+```
+float a[5]={1.1, 2.2, 3.3, 4.4, 5.5}
+unsigned int n=5;
+xmm0=0;
+for(ecx=0; exc<n; ecx++)
+{
+    xmm0+=a[ecx];
+}
+```
 
+```
+a: .float 1.1, 2.2, 3.3, 4.4, 5.5
+n: .int 5
+
+mov $0, %ecx
+xorps %xmm0, %xmm0
+while: cmp n, %ecx
+jae endwhile
+movss a(,%ecx,8), %xmm1
+cvtss2sd %xmm1, %xmm1
+addsd %xmm1, %xmm0
+jmp while
+
+endwhile:
+```
+
+
+## Bài 8: Viết thủ tục sau bằng Assembly
+```
+void calculate(float *pf, double d, int scale)
+{
+    *pf=d*(scale+4);
+}
+```
+
+```
+
+const1: .int 4
+mov $pf, %rdi
+movsd d, %xmm0
+mov scale, %rcx
+
+call calculate // gọi hàm
+
+proc_calculate: 
+
+cvtsi2sd %rcx %xmm1
+cvtsi2sd const1, %xmm2
+
+addsd %xmm2, %xmm1
+mul %xmm1, %xmm0
+movsd %xmm0, 0(%rdi)
+
+```
