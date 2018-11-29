@@ -224,3 +224,62 @@ mul %xmm1, %xmm0
 movsd %xmm0, 0(%rdi)
 
 ```
+## Bài 9: Viết hàm sau bằng Assembly
+
+Code C+:
+
+```
+double calculate(float pf, double d, int scale)
+{
+    return pf+d*(scale+4);
+}
+```
+
+
+Code Assembly:
+
+```
+const1: .int 4
+
+movss %pf, %xmm0
+movsd %d, %xmm1
+mov scale, %rdi
+
+
+proc_calculate:
+
+add const1, %rdi
+cvtsi2sd %rdi, %xmm2
+mulsd %xmm2, %xmm1
+svtss2sd %xmm0, %xmm0
+add %xmm1, %xmm0
+ret
+```
+
+## Bài 10: Viết hàm sau bằng Assembly
+```
+double calculate(long * pf, double d, int scale)
+{
+    return *pf+d*(scale+4);
+}
+```
+
+```
+const: .int 4
+mov $pf, %rdi
+movsd d, %xmm0
+mov scale, %rsi
+
+proc_calculate:
+
+add const1, %rsi
+cvtsi2sd %rsi, %xmm1
+mulsd %xmm1, %xmm0
+cvtsi2sdq 0(%rdi), %xmm1
+add %xmm1, %xmm0
+ret
+
+```
+
+
+
