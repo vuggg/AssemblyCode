@@ -269,6 +269,7 @@ const: .int 4
 mov $pf, %rdi
 movsd d, %xmm0
 mov scale, %rsi
+call proc_calculate  // gọi hàm
 
 proc_calculate:
 
@@ -278,6 +279,171 @@ mulsd %xmm1, %xmm0
 cvtsi2sdq 0(%rdi), %xmm1
 add %xmm1, %xmm0
 ret
+
+```
+
+## Bài 11: Viết hàm sau bằng Assembly
+
+```
+long calculate(long * pf, double d, int scale)
+{
+    if (*pf>d) return *pf*scale;
+    else return d*scale;
+}
+```
+
+```
+mov $pf, %rdi
+movsd d, %xmm0
+mov scale, %rsi
+
+proc_calculate:
+cvtsi2sdq 0(%rdi), %xmm1
+ucomisd %xmm1, %xmm0
+jb L1
+
+cvtsi2sd %rsi, %xmm2
+mul %xmm2, %xm11
+jmp Return
+
+L1:
+cvtsi2sd %rsi, %xmm2
+mulsq %xmm1, %xmm2
+movesd %xmm2, %xmm1
+jmp Return
+
+
+Return:
+ret
+
+```
+
+## Bài 12:Viết chương trình tìm ước số chung lớn nhất của hai số nguyên dương a và b.
+
+```
+eax=a; ebx=b;
+
+while( eax!=ebx)
+{
+    if(eax>ebx)eax-=ebx;
+    else if (ebx>eax)ebx-=eax;
+}
+```
+
+mov a, %eax
+mov b, %ebx
+
+while: cmp %ebx, %eax
+je endwhile
+cmp %ebx, %eax
+jna L1
+cmd %ebx, %eax
+jae while
+sub %eax, %ebx
+jmp while
+
+L1:
+
+sub %ebx, %eax
+jmp while
+
+## Bài 12: Viết chương trình tìm bội số chung nhỏ nhất của 2 số nguyên dương a và b.
+
+```
+ecx=a; ebx=b;
+r8d=ecx*ebx;
+while( ecx!=ebx)
+{
+    if(ecx>ebx) ecx-=ebx;
+    else if (ebx>ecx) ebx-=ecx;
+}
+eax=r8d/ebx;
+```
+
+```
+mov a, %ecx
+mov b, %ebx
+mov %ecx, %eax
+mul %ebx
+mov %eax, %r8d
+
+while: cmp %ebx, %ecx
+jne L1
+mov %r8d, %eax
+mul %ebx
+
+L1:
+
+cmp %ebx, %ecx
+ja L2
+cmd %ecx, %ebx
+ja L3
+jmp while
+
+L2: 
+
+sub %ebx, %ecx
+jmp while
+
+L3:
+
+sub %ecx, %ebx
+```
+
+## Bài 14: Viết chương trình in ra n số đầu tiên của dãy fibonacy
+
+```
+r8d=1;
+eax=0; 
+ebx=1;
+
+for (ecx=n-2; ecx>0; ecx--)
+{
+    edx=ebx;
+    ebx+= eax;
+    eax=edx;
+    r8d+=ebx;
+}
+```
+
+```
+mov $1, %r8d
+mov $0, %eax
+mov $a, %ebx
+
+mov n, %ecx
+sub $1, %ecx
+
+L1:
+mov %ebx, %edx
+add %eax, %ebx
+mov %eax, %edx
+add %ebx, %r8d
+
+loop L1
+
+```
+
+## Bài 15: Viết chương trình tính giai thừa của số nguyên dương n
+```
+r8d=1;
+for(ecx=n; ecx>0; ecx--)r8d*=ecx;
+```
+
+```
+mov $1, %r8d
+mov n, %eax
+add $1, %eax
+mov %eax, %ecx
+mov %r8d, %eax
+
+L1:
+
+mul %ecx
+
+loop L1
+
+mov %eax, %r8d
 
 ```
 
