@@ -152,6 +152,7 @@ neg valW        # valW = -32767
 * Phép chia không dấu
 
 | Số bị chia    | số chia   | Thương    | Số dư     |
+| ----------    |---------- | ----------|---------- |
 | AX            | r8/m8     | AL        | AH        |
 | DX:AX         | r16/m16   | AX        | DX        |
 | EDX:EAX       | r32/m32   | EAX       | EDX       |
@@ -164,3 +165,23 @@ neg valW        # valW = -32767
 * Carry flags được set khi mà một phép toán làm cho giá trị của một số không dấu vượt ra ngoài khoảng giá trị
 * Overflow flags được set khi mà một phép toán làm cho giá trị của một số có dấu vượt ra ngoài khoảng giá trị
 * Sign flags được bật khi mà toán hạng destination là một số âm
+
+
+#### Lệnh nhảy JMP
+
+* JMP  là một lệnh không điều kiện, nhảy đến một label.
+
+* Cú pháp: ```jmp label```
+
+#### Lệnh so sánh CMP
+
+* Cú pháp: ```cmp source, destination```
+* So sánh toán hạng destination với toán hạng source
+
+* Source có thể là một thanh gi, biến, huặc hằng số
+
+#### Jump conditional instruction
+
+* Jcond Instruction là lệnh nhảy có điều kiện, nhảy được thực thi khi mà  thanh gi chỉ định huặc cờ được thỏa mãn điều kiện.
+
+* 
