@@ -54,7 +54,7 @@ __Quy ước:__
 
 ## Các câu lệnh
 
-#### Lệnh MOV
+### Lệnh MOV
 
 * Move từ source đến destionation
 
@@ -69,7 +69,7 @@ __Quy ước:__
                     mov %rbx, %rax
                 ```
 
-#### Truy cập giá trị trong mảng
+### Truy cập giá trị trong mảng
 
 * Truy cập trực tiệp phần tử trong mảng bằng chỉ số
     __Cú pháp:__  ```nameArray(, position, sizeOfTyped)```
@@ -83,9 +83,9 @@ __Quy ước:__
             ```
     __int có kích thước là 4 byte, ebx có giá trị là 0. Câu lệnh trên là truy cập phần tử thứ 0 của mảng myarray__
 
-#### Addition and Subtraction
+### Addition and Subtraction
 
-##### Overview
+#### Overview
 *  Increasing and Decreasing
     * inc
     * dec
@@ -95,7 +95,7 @@ __Quy ước:__
 * Status flags thay đổi sau khi thực hiện các phép toán số học
     * Zero, Sign, Carry, Overflow
 
-##### Câu lệnh INC and DEC 
+#### Câu lệnh INC and DEC 
 
 * Cộng một và trừ một từ toán hạng địch
     __Toán hạng có thể là một thanh gi huặc một tham chiếu bộ nhớ__
@@ -104,7 +104,7 @@ __Quy ước:__
     ``` inc destiantion```
     ``` dec destination```
 
-##### Câu lệnh add và sub
+#### Câu lệnh add và sub
 
 * Cộng/Trừ vào source vào destination
 * Cú pháp:
@@ -127,7 +127,7 @@ add %ebx, %eax    # eax += ebx
 sub %ebx, %eax    # eax -= ebx
 ```
 
-##### Câu lệnh NEG
+#### Câu lệnh NEG
 
 * Đổi dấu của toán hạng, toán hạng có thể là một thanh gi huặc là một tham chiếu bộ nhớ
 * Cú pháp: 
@@ -184,4 +184,135 @@ neg valW        # valW = -32767
 
 * Jcond Instruction là lệnh nhảy có điều kiện, nhảy được thực thi khi mà  thanh gi chỉ định huặc cờ được thỏa mãn điều kiện.
 
-* 
+    * Nhảy dựa trên giá trị của các cờ
+
+        ![h5](https://i.imgur.com/IkdaIDu.png)
+    
+    * Nhảy dựa trên sự bằng nhau
+        ```cmp source, destination```
+        ![h6](https://i.imgur.com/mGxDlRZ.png)
+    
+    * Nhảy dựa trên sự so sánh số không dấu
+        ```cmp source, destination```
+        ![h7](https://i.imgur.com/p7v0iC4.png)
+    
+    * Nhảy dựa trên sự so sánh số có dấu
+        ```cmp source, destination```
+        ![h8](https://i.imgur.com/TEu2kI8.png)
+
+
+#### Vòng lặp trong Assembly
+
+##### Vòng lặp Loop
+
+* Cú pháp: ```loop label```
+
+* Logic: 
+    * ECX -= 1;
+    * if ECX != 0 jmp label
+
+* Ví dụ:
+
+    ```
+    mov $5, %ecx
+    xor %ebx, %ebx
+    L1: 
+        inc %ecx
+    
+    loop L1
+    ```
+
+##### Vòng lặp While
+
+* Vòng lặp while thực chất là một câu lệnh if kết hợp với lệnh nhảy.
+
+Code C++:
+```
+while(eax < ebx>)
+{
+    eax = eax + 1;
+}
+```
+
+chuyển sang code Assembly:
+
+```
+while: cmp %ebx, %eax
+jae endwhile
+inc %eax
+jmp while
+
+endwhile:
+```
+
+### Thủ tục hàm (Procedure)
+
+* Định nghĩa:
+```
+Convert:
+    mov $10, %ebx
+    xor %eax, eax
+    ret
+```
+
+* Thứ tự truyền đối số của hàm 
+
+    * Trong trường hợp số nguyên, ta có thứ tự truyền đối số vào hàm và giá trị trả về của hàm như sau:
+
+    ![Imgur](https://i.imgur.com/U31LfQ9.png)
+
+
+    * Trong trường hợp số thực, ta phải sử dụng thanh gi ```xmm```, thứ tự truyền đối số là từ ```xmm0```. và giá trị trả về được lưu ở thanh gi ```xmm0```
+
+### Gọi hàm trong thư viện C
+
+```
+.section .data
+string: .asciz "I have %d /n Apple"
+apple: .int 69
+
+.section .text
+.globl _start
+
+_start:
+
+mov $string, %edi
+mov numberOfApple, %esi
+mov $0, %eax
+
+call printf
+call exit
+```
+
+
+### Streaming SIMD Extention 3
+
+* SIMD: single instruction multiple data
+* Phiên bản hiện tại của SSE là phiên bản SSE4
+
+#### SSE3 Introducition
+
+#### SSE3 Instruction
+
+|Instruontion   | Source    | Destination   | Description                                         |
+|---------------|-----------|---------------|-----------------------------------------------------|
+| movss         | M32/X     | X             | Gán giá trị của một độ chính xác đơn                |
+
+![Imgur](https://i.imgur.com/xVrWnol.png)
+![Imgur](https://i.imgur.com/Kv0qn4M.png)
+
+__Chú thích:__
+    1. X: Thanh gi Xmm
+    2. R32/64: Thanh gi 32/64 bit mục đích chung 
+    3. M32/64: Thanh gi tham chiếu bộ nhớ 32/64 bit
+    4. D: Destination
+    5. S: Source
+
+
+### Chuyển đổi kiểu dữ kiểu kiểu số nguyên
+
+
+
+
+
+
