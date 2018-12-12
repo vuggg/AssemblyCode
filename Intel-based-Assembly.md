@@ -311,7 +311,26 @@ __Chú thích:__
 
 ### Chuyển đổi kiểu dữ kiểu kiểu số nguyên
 
+#### Chuyển đổi kiểu dữ số nguyên không dấu
 
+* unsigned char uc = 12
+* unsigned short us = 71
+* usingned int ui = 23
+* usingned long ul = 98
+
+![h13](https://i.imgur.com/ftdoPrZ.png)
+
+__Chú ý:__ Lệnh chuyển đổi kiểu dữ liệu bắt buộc destination phải là một thanh gi, source có thể là một thanh gi huặc là một tham chiếu bộ nhớ.
+
+#### chuyển đổi kiểu dữ liệu nguyên có dấu
+
+* char c = -12
+* shor s = 71
+* int i = -12
+* long l = 98
+
+
+![h14](https://i.imgur.com/figGYrq.png)
 
 
 
